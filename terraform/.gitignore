@@ -1,0 +1,9 @@
+.terraform
+main.tf
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+kubeconfig.yaml
+charts
+olm
+olm-tf
