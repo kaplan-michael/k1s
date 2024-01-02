@@ -18,9 +18,9 @@ terraform {
     }
   }
 }
-provider "k0sctl" {
-  #no config needed
-}
+#provider "k0sctl" {
+#  #no config needed
+#}
 
 provider "kustomization" {
   kubeconfig_raw = module.cluster.kubeconfig

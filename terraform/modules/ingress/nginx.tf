@@ -21,6 +21,7 @@ data kustomization_overlay "ingress-nginx" {
           default: true
         hostPort:
           enabled: true
+        allowSnippetAnnotations: true
       serviceMonitor:
         enabled: false
     VALUES

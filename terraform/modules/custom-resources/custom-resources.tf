@@ -6,8 +6,11 @@ data kustomization_overlay "custom_resources" {
   ]
 }
 
-resource "kustomization_resource" "custom_resources" {
-  for_each = { for v in data.kustomization_overlay.custom_resources.ids : v => v }
-  manifest = data.kustomization_overlay.custom_resources.manifests[each.value]
+locals {
+  manifest_ids = tolist(data.kustomization_overlay.custom_resources.ids)
+}
 
+resource "kustomization_resource" "custom_resources" {
+  count = 3
+  manifest = data.kustomization_overlay.custom_resources.manifests[local.manifest_ids[count.index]]
 }

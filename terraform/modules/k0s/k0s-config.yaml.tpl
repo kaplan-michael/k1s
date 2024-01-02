@@ -26,3 +26,4 @@ spec:
   extensions:
     storage:
       type: openebs_local_storage
+      create_default_storage_class: true
