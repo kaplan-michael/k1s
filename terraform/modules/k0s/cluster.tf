@@ -13,7 +13,17 @@ resource "k0sctl_config" "cluster" {
         user = var.k0s.ssh.user
         port = var.k0s.ssh.port
         key_path = var.k0s.ssh.key_path
+        dynamic "bastion" {
+          for_each = var.bastion != null ? [var.bastion] : []
+          content {
+            address  = bastion.value.address
+            user     = bastion.value.user
+            port     = bastion.value.port
+            key_path = bastion.value.key_path
+          }
+        }
       }
+
       install_flags = [
         "--profile coreos",
         "--cri-socket remote:unix:///var/run/crio/crio.sock",

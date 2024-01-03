@@ -24,3 +24,14 @@ variable "k1s" {
     }
   }
 }
+
+variable "bastion" {
+  type = object({
+    address  = string
+    user     = string
+    port     = number
+    key_path = string
+  })
+  description = "Configuration for bastion"
+  default     = null
+}

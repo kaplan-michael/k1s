@@ -1,6 +1,7 @@
 module "cluster" {
   source = "./modules/k0s"
   k0s = var.k1s
+  bastion = var.bastion
 }
 
 module olm {
