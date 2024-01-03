@@ -4,4 +4,5 @@
 !/terraform/**
 !README.md
 !LICENSE
-```
+!/example/
+!example/**

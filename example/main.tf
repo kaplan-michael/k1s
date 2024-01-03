@@ -1,5 +1,5 @@
 module "cluster" {
-  source = "github.com/kaplan-michael/k1s"
+  source = "github.com/kaplan-michael/k1s/terraform"
   k1s = {
     name = "k0s-sno" #specify a name for the cluster
     version = "v1.28.4+k0s.0" #specify a version of k0s to install

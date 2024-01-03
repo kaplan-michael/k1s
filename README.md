@@ -5,6 +5,8 @@
 **This is a work in progress and may not be ready for production use.
 Use with caution and at your own risk.**
 
+single node for now
+
 ## Description
 
 This project aims to set up and manage a k0s Kubernetes cluster on fedora CoreOS with dependency 
@@ -27,6 +29,7 @@ for installation of prerequisites, please refer to the official documentation of
  - Run `terraform init` to initialize terraform
  - Run `terraform plan` to see what will be created
  - Run `terraform apply` to create the cluster
+ - Run `terraform output -raw kubeconfig >> kubeconfig.yaml` to get the kubeconfig
 
 ## Contributing
 
