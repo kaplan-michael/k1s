@@ -21,12 +21,12 @@ for installation of prerequisites, please refer to the official documentation of
 
 ## Usage
 
- - Refer to main.tf.example. 
- - Copy main.tf.example to main.tf
+ - Refer to main.tf in the [example folder](./example).
  - Edit main.tf to suit your needs(mainly cluster details and connection to the coreos box)
- - Run `terraform init`
- - Run `terraform apply`
- - Run `terraform apply`
+ - Run `terraform get` to download the module
+ - Run `terraform init` to initialize terraform
+ - Run `terraform plan` to see what will be created
+ - Run `terraform apply` to create the cluster
 
 ## Contributing
 
