@@ -1,0 +1,44 @@
+# .github/workflows/build.yml
+name: Build & Push Container Images
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at midnight
+  push:
+    paths:
+      - 'os/**'
+
+env:
+  IMAGE_NAME: os
+  REGISTRY: quay.io/k1s-os
+
+jobs:
+  
+  build-os-image:
+    name: Build & Push coreOS container image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build coreOS Container Image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          layers: true
+          oci: true
+          image: ${{ env.IMAGE_NAME }}
+          archs: amd64
+          tags: ${{ github.ref == 'refs/heads/master' && 'latest ' || '' }}${{ github.sha }}
+          containerfiles: |
+            ./os/Containerfile
+        
+      - name: Push Container Image To Registry
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}

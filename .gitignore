@@ -6,3 +6,7 @@
 !LICENSE
 !/example/
 !example/**
+!.github
+!.github/**
+!os
+!os/**

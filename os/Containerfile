@@ -1,0 +1,13 @@
+FROM quay.io/fedora/fedora-coreos:stable
+
+#Install crio packages
+RUN rpm-ostree install crio crictl
+
+RUN systemctl enable crio
+
+RUN rpm-ostree install qemu-guest-agent
+# Clean up the cache
+# `rm -rf /var/cache` is the equivalent of `yum clean all`
+RUN  rm -rf /var/cache
+# For `ostree container commit`, see https://github.com/ostreedev/ostree-rs-ext/issues/159
+RUN ostree container commit
