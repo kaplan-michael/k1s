@@ -5,7 +5,7 @@ RUN rpm-ostree install crio crictl
 
 RUN systemctl enable crio
 
-RUN rpm-ostree install qemu-guest-agent
+RUN rpm-ostree install qemu-guest-agent open-vm-tools
 # Clean up the cache
 # `rm -rf /var/cache` is the equivalent of `yum clean all`
 RUN  rm -rf /var/cache
