@@ -3,6 +3,6 @@ data "template_file" "k0s_config" {
 
   vars = {
     cluster_name = var.k0s.name
-    cluster_external_address = var.k0s.external_address
+    cluster_sans = join(",", var.k0s.sans)
   }
 }

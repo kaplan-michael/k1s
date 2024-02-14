@@ -4,18 +4,17 @@ metadata:
   name: ${cluster_name}
 spec:
   api:
-    externalAddress: ${cluster_external_address}
+    sans:
+%{ for address in split(",", cluster_sans) ~}
+      - ${address}
+%{ endfor ~}
   controllerManager:
     extraArgs:
       flex-volume-plugin-dir: /var/libexec/k0s/kubelet-plugins/volume/exec
   network:
-    provider: calico
-    calico:
-      flexVolumeDriverPath: /var/libexec/k0s/kubelet-plugins/volume/exec/nodeagent~uds
+    provider: custom
     kubeProxy:
-      mode: ipvs
-      ipvs:
-        strictARP: true
+      disabled: true
   workerProfiles:
     - name: coreos
       values:

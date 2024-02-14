@@ -4,5 +4,3 @@ terraform.tfstate.backup
 .terraform.lock.hcl
 kubeconfig.yaml
 charts
-olm
-olm-tf

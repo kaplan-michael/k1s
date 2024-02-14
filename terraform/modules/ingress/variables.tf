@@ -4,7 +4,8 @@ variable "ingress-nginx-version"  {
   description = "version of nginx ingress to install(helm chart)"
 }
 
-variable "k0s_id" {
-  type = string
-  description = "cluster id"
+variable "replicas" {
+  default = 1
+  type = number
+  description = "number of replicas for the ingress controller"
 }

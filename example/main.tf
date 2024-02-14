@@ -3,12 +3,20 @@ module "cluster" {
   k1s = {
     name = "k0s-sno" #specify a name for the cluster
     version = "v1.28.4+k0s.0" #specify a version of k0s to install
-    external_address = "api.k0s-sno.infra.int.kpml.net" #specify the external address of the cluster
-    ssh = { #specify the ssh connection details to the cluster
-      user     = "core"
-      address = "0.0.0.0"
-      port     = 22
-      key_path = "*.ssh/id_ed25519"
-    }
+    sans = ["api.k0s-sno.infra.int.kpml.net"] #specify the external address of the cluster
   }
+  nodes = [
+    {
+      role            = "controller+worker"
+      hostname        = "some-node.somewhere.net"
+      private_address = "nodeIP"
+      no_taints       = true
+      ssh = {
+        address  = "nodeIP for ssh access"
+        user     = "core"
+        port     = 22
+        key_path = "~/.ssh/id_ed25519"
+      }
+    },
+  ]
 }
