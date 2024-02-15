@@ -1,0 +1,29 @@
+FROM quay.io/fedora/fedora-coreos:rawhide
+
+LABEL maintainer="Michael Kaplan <michael@kaplan.sh>"
+LABEL description="Fedora CoreOS with CRI-O and Open-VM-Tools"
+
+#Install packages
+RUN rpm-ostree install crio \
+                       crictl \
+                       qemu-guest-agent \
+                       open-vm-tools
+
+COPY ./bootc-fetch-updates.service /usr/lib/systemd/system/bootc-fetch-updates.service
+COPY ./bootc-fetch-updates.timer /usr/lib/systemd/system/bootc-fetch-updates.timer
+COPY ./check-reboot.sh /usr/bin/check-reboot.sh
+RUN chmod +x /usr/bin/check-reboot.sh
+
+#Enable bootc-fetch-updates.timer
+RUN systemctl enable bootc-fetch-updates.timer
+
+#Enable crio
+RUN systemctl enable crio
+
+# Clean up the cache
+# `rm -rf /var/cache` is the equivalent of `yum clean all`
+RUN  rm -rf /var/cache
+
+# For `ostree container commit`, see https://github.com/ostreedev/ostree-rs-ext/issues/159
+RUN ostree container commit
+

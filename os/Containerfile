@@ -1,13 +1,18 @@
 FROM quay.io/fedora/fedora-coreos:stable
 
-#Install crio packages
-RUN rpm-ostree install crio crictl
+LABEL maintainer="Michael Kaplan <michael@kaplan.sh>"
+LABEL description="Fedora CoreOS with CRI-O and Open-VM-Tools"
 
+#Install & enable crio packages
+RUN rpm-ostree install crio crictl
 RUN systemctl enable crio
 
+#Install qemu-guest-agent and open-vm-tools
 RUN rpm-ostree install qemu-guest-agent open-vm-tools
+
 # Clean up the cache
 # `rm -rf /var/cache` is the equivalent of `yum clean all`
 RUN  rm -rf /var/cache
+
 # For `ostree container commit`, see https://github.com/ostreedev/ostree-rs-ext/issues/159
 RUN ostree container commit

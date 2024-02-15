@@ -15,7 +15,7 @@ env:
 jobs:
   
   build-os-image:
-    name: Build & Push coreOS container image
+    name: Build & Push coreOS Container Image
     runs-on: ubuntu-latest
 
     steps:
@@ -30,10 +30,41 @@ jobs:
           image: ${{ env.IMAGE_NAME }}
           archs: amd64
           tags: ${{ github.ref == 'refs/heads/master' && 'latest ' || '' }}${{ github.sha }}
+          context: os
           containerfiles: |
             ./os/Containerfile
-        
+
       - name: Push Container Image To Registry
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+  build-testing-os-image:
+    name: Build & Push coreOS testing Container Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build coreOS testing Container Image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          layers: true
+          oci: true
+          image: ${{ env.IMAGE_NAME }}
+          archs: amd64
+          tags: ${{ github.ref == 'refs/heads/master' && 'testing ' || '' }}${{ github.sha }}
+          context: ./os
+          containerfiles: |
+            ./os/Containerfile-testing
+
+      - name: Push testing Container Image To Registry
         id: push-to-quay
         uses: redhat-actions/push-to-registry@v2
         with:
