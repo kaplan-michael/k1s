@@ -22,6 +22,16 @@ module ingress-nginx {
   depends_on = [module.cilium]
 }
 
+module "kured" {
+  source = "./modules/kured"
+  depends_on = [module.cilium]
+}
+
+module "tektoncd" {
+  source = "./modules/tektoncd"
+  depends_on = [module.olm]
+}
+
 module cert-manager {
   source = "./modules/cert-manager"
   depends_on = [module.olm]

@@ -1,7 +1,7 @@
 variable "cilium-version"  {
   default = "1.15.0"
   type = string
-  description = "version of cilium to install"
+  description = "version of cilium chart to install"
 }
 
 variable "k0s_id" {
