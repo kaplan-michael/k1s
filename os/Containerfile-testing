@@ -7,7 +7,8 @@ LABEL description="Fedora CoreOS with CRI-O and Open-VM-Tools"
 RUN rpm-ostree install crio \
                        crictl \
                        qemu-guest-agent \
-                       open-vm-tools
+                       open-vm-tools \
+                       htop
 
 COPY ./bootc-fetch-updates.service /usr/lib/systemd/system/bootc-fetch-updates.service
 COPY ./bootc-fetch-updates.timer /usr/lib/systemd/system/bootc-fetch-updates.timer
