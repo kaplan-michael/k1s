@@ -29,7 +29,7 @@ jobs:
           oci: true
           image: ${{ env.IMAGE_NAME }}
           archs: amd64
-          tags: ${{ github.ref == 'refs/heads/master' && 'latest ' || '' }}${{ github.sha }}
+          tags: ${{ github.ref == 'refs/heads/master' && 'latest stable ' || '' }}${{ github.sha }}
           context: os
           containerfiles: |
             ./os/Containerfile
