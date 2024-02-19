@@ -25,8 +25,10 @@ RUN systemctl enable crio
 # `rm -rf /var/cache` is the equivalent of `yum clean all`
 RUN  rm -rf /var/cache
 
-# Set the number of hugepages to 2048
-RUN echo vm.nr_hugepages = 2048 | sudo tee -a /etc/sysctl.conf
+# Set up sysctl settings
+RUN echo vm.nr_hugepages = 2048 | sudo tee -a /etc/sysctl.d/k8s_storage.conf
+RUN echo net.ipv4.conf.all.arp_ignore=1 | sudo tee -a /etc/sysctl.d/k8s_arp.conf
+RUN echo net.ipv4.conf.all.arp_announce=2 | sudo tee -a /etc/sysctl.d/k8s_arp.conf
 
 # For `ostree container commit`, see https://github.com/ostreedev/ostree-rs-ext/issues/159
 RUN ostree container commit
