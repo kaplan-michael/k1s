@@ -3,12 +3,14 @@ variable "k1s" {
     name    = string
     version = string
     sans = list(string)
+    external_address = string
   })
   description = "Configuration for k1s"
   default     = {
     name    = "k1s"
     version = "v1.28.4+k0s.0"
     sans = []
+    external_address = null
     }
 }
 
