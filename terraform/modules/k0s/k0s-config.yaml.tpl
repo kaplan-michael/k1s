@@ -4,14 +4,15 @@ metadata:
   name: ${cluster_name}
 spec:
   api:
+%{ if cluster_sans != "" ~}
     sans:
 %{ for address in split(",", cluster_sans) ~}
       - ${address}
 %{ endfor ~}
-%{ if external_address_var != null ~}
-    external_address: ${external_address}
+%{endif ~}
+%{ if external_address != "" ~}
+    externalAddress: ${external_address}
 %{ endif ~}
-    external_address:
   controllerManager:
     extraArgs:
       flex-volume-plugin-dir: /var/libexec/k0s/kubelet-plugins/volume/exec

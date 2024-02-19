@@ -1,6 +1,6 @@
 resource "helm_release" "cilium" {
   name       = "cilium"
-  repository = "https://helm.cilium.io/"
+  repository = "https://helm.cilium.io"
   chart      = "cilium"
   namespace  = "kube-system"
   version    = var.cilium-version
@@ -74,5 +74,10 @@ resource "helm_release" "cilium" {
     name = "k8sClientRateLimit.burst"
     value = "100"
     }
+
+  set {
+    name  = "ipam.operator.clusterPoolIPv4PodCIDRList[0]"
+    value = "172.16.0.0/12"
+  }
 }
 

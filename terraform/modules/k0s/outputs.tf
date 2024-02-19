@@ -32,3 +32,8 @@ output "kube_host" {
   sensitive = true
   description = "k0s cluster host"
 }
+
+output "k0s_yaml" {
+  value = k0sctl_config.cluster.k0s_yaml
+  description = "k0s debug yaml"
+}
