@@ -27,7 +27,3 @@ spec:
         cgroupDriver: systemd
   telemetry:
     enabled: false
-  extensions:
-    storage:
-      type: openebs_local_storage
-      create_default_storage_class: true

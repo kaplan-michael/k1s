@@ -27,6 +27,11 @@ module "kured" {
   depends_on = [module.cilium]
 }
 
+module "mayastor" {
+    source = "./modules/mayastor"
+    depends_on = [module.cilium]
+}
+
 module "tektoncd" {
   source = "./modules/tektoncd"
   depends_on = [module.olm]

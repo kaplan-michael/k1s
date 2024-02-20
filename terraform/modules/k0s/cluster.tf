@@ -24,6 +24,7 @@ resource "k0sctl_config" "cluster" {
           "--profile coreos",
           "--cri-socket remote:unix:///var/run/crio/crio.sock",
           "--taints node.cilium.io/agent-not-ready=true:NoExecute",
+          "--labels openebs.io/engine=mayastor"
         ]
       }
     }
