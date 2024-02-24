@@ -22,7 +22,7 @@ resource "helm_release" "cilium" {
 
   set {
     name = "kubeProxyReplacement"
-    value = "strict"
+    value = "true"
   }
 
   set {
@@ -60,10 +60,10 @@ resource "helm_release" "cilium" {
         value = "true"
     }
 
-  set {
-    name = "l2announcements.enabled"
-    value = "true"
-  }
+  #set {
+  #  name = "l2announcements.enabled"
+  #  value = "true"
+  #}
 
   set {
     name = "k8sClientRateLimit.qps"
@@ -77,7 +77,7 @@ resource "helm_release" "cilium" {
 
   set {
     name  = "ipam.operator.clusterPoolIPv4PodCIDRList[0]"
-    value = "172.16.0.0/12"
+    value = "10.244.0.0/16"
   }
 }
 

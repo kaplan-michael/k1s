@@ -1,5 +1,5 @@
 variable "cilium-version"  {
-  default = "1.15.0"
+  default = "1.15.1"
   type = string
   description = "version of cilium chart to install"
 }
